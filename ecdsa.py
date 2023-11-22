@@ -6,12 +6,14 @@ from fastecdsa import curve
 curve = curve.secp256k1
 
 def generate_keypair():
-    # generating private key (random integer in the range [1, curve.q-1])
-    sk = random.randint(1, curve.q - 1)
+    while True:
+        # generating private key (random integer in the range [1, curve.q-1])
+        sk = random.randint(1, curve.q - 1)
 
-    # generating public key (multiply the base point by the private key)
-    pk = curve.G * sk
-
+        # generating public key (multiply the base point by the private key)
+        pk = curve.G * sk
+        if curve.is_point_on_curve((pk.x, pk.y)):
+            break
     return sk, pk
 
 
