@@ -5,6 +5,7 @@ from fastecdsa.encoding import sec1
 
 curve = curve.secp256k1
 
+
 def generate_keypair():
     while True:
         # generating private key (random integer in the range [1, curve.q-1])
@@ -106,40 +107,3 @@ def verify(msg, signature, pk):
     e = int(hashlib.sha256(hash_input.encode()).hexdigest(), 16)
 
     return s * curve.G == R + e * pk
-
-# Example usage
-message = "Hello, world!"
-message2 = "Hello"
-
-# Generate keypair
-private_key1, public_key1 = generate_keypair()
-private_key2, public_key2 = generate_keypair()
-private_key3, public_key3 = generate_keypair()
-private_nonce1, public_nonce1 = generate_nonce()
-private_nonce2, public_nonce2 = generate_nonce()
-private_nonce3, public_nonce3 = generate_nonce()
-
-private_keys = [private_key1, private_key2, private_key3]
-public_keys = [public_key1, public_key2, public_key3]
-private_nonces = [private_nonce1, private_nonce2, private_nonce3]
-public_nonces = [public_nonce1, public_nonce2, public_nonce3]
-
-# print(f"sks: {private_keys}")
-# print(f"pks: {public_keys}")
-# print(f"rs: {private_nonces}")
-# print(f"Rs: {public_nonces}")
-
-
-# Sign the message
-# signature = muSig(private_keys, public_keys, private_nonces, public_nonces, message)
-signature = sign(message, private_key1)
-# shared_pk, _ = generate_shared_pk(public_keys)
-
-
-# Verify the signature
-# valid = verify(message, signature, shared_pk)
-valid = verify(message, signature, public_key1)
-
-print(f"Message: {message}")
-print(f"Signature: {signature}")
-print(f"Is Valid: {valid}")

@@ -1,8 +1,7 @@
 import random
-import math
 
 
-def is_prime(n, k = 5):
+def is_prime(n, k=5):
     if n <= 1:
         return False
     if n <= 3:
@@ -72,15 +71,3 @@ def verify(msg, s, pk):
     if isinstance(msg, str):
         msg = int.from_bytes(msg.encode(), 'big')
     return decrypted_signature == msg
-
-
-# Example usage
-message = "Hello, world!"
-# wrong_message = 'Hello, world'
-sk, pk = gen_keypair(1024)
-signature = sign(message, sk)
-is_valid = verify(message, signature, pk)
-
-print(f"Message: {message}")
-print(f"Signature: {signature}")
-print(f"Is Valid: {is_valid}")
